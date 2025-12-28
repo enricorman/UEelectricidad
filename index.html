@@ -1,0 +1,42 @@
+<!-- Country Selector -->
+<div class="country-selector-group">
+<span class="control-label-pro">Country/Region:</span>
+                    <img id="country-flag" src="flags/EU.svg" width="24" height="16" alt="Country flag" style="margin: 0 8px; vertical-align: middle;">
+<select id="country-select" class="country-select-pro" onchange="updateTable()">
+<optgroup label="Region">
+<option value="EU" selected>European Union</option>
+@@ -149,27 +150,34 @@
+const countryId = document.getElementById('country-select').value;
+const countryData = allCountriesData[countryId];
+
+            // Update country flag
+            const flagImg = document.getElementById('country-flag');
+            if (flagImg) {
+                flagImg.src = `flags/${countryId}.svg`;
+                flagImg.alt = `${countryId} flag`;
+            }
+            
+if (!countryData) {
+console.error(`No data found for country: ${countryId}`);
+document.getElementById('summary-table-container').innerHTML = 
+`<div class="error-message-pro">Data not available for ${countryId}</div>`;
+return;
+}
+
+// Display table for selected country
+displaySummaryTable(countryData);
+
+// Preserve current toggle state
+const activeButton = document.querySelector('.toggle-btn-pro.active');
+if (activeButton) {
+const buttonId = activeButton.id;
+switch(buttonId) {
+case 'toggle-percentage':
+showPercentage();
+break;
+case 'toggle-absolute':
+showAbsolute();
+break;
+case 'toggle-change':
+showChange();
+break;
